@@ -35,7 +35,7 @@ angular.module('kakakumeApp', [
         }
       };
 
-      if ($window.user !== null) {
+      if ($window.user) {
         sessionService.authSuccess($window.user);
       }
     }

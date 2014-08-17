@@ -12,7 +12,9 @@ module.exports = function(app, passport) {
   app.use('/api/things', require('./api/thing'));
 
   //Secured API
+  //ここでクエリを使ってアクセスさせるべきかorクッキーの仕組みを使うか
   app.get('/api/secured/*', function (req, res, next) {
+    console.log(req.user)
     if (!req.user) {
       return res.json({ error: 'This is a secret message, login to see it.' });
     }
@@ -27,10 +29,10 @@ module.exports = function(app, passport) {
 
   // Authentication
   app.get('/auth/facebook', passport.authenticate('facebook'));
-  app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/auth/success', failureRedirect: '/auth/failure' }));
-  app.get('/auth/success', function(req, res) {
-    res.render('after-auth', { state: 'success', user: req.user ? req.user : null });
-  });
+  app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/auth/failure' }), function(req, res) {
+      res.render('after-auth', { state: 'success', user: req.user ? req.user : null });
+    }
+  );
   app.get('/auth/failure', function(req, res) {
     res.render('after-auth', { state: 'failure', user: null });
   });

@@ -7,7 +7,7 @@ angular.module('kakakumeApp')
 
 
     function loadMessages() {
-      $http.get('/api/secured/message').success(function(data) {
+      $http.get('/api/secured/message', {withCredentials: true}).success(function(data) {
         $scope.messages.secured = data.message || data.error;
       });
 
@@ -18,7 +18,7 @@ angular.module('kakakumeApp')
 
     // Debug code for auth
     var deregistration = $rootScope.$on('session-changed', loadMessages);
-      $scope.$on('$destroy', deregistration);
+    $scope.$on('$destroy', deregistration);
 
     loadMessages();
 

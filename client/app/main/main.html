@@ -20,6 +20,12 @@
   <button ng-hide="session.isLoggedIn" ng-click="session.facebookLogin()">Login</button>
   <span ng-show="session.isLoggedIn" ng-bind="'Hello ' + session.currentUser.name"></span>
   <button ng-show="session.isLoggedIn" ng-click="session.logout()">Logout</button>
+  <br/><br/>
+  <div>
+    Unsecured message: <span ng-bind="messages.unsecured"></span>
+    <br/>
+    Secured message: <span ng-bind="messages.secured"></span>
+  </div>
 </div>
 
 <footer class="footer">

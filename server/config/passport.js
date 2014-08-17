@@ -6,11 +6,14 @@ var mongoose = require('mongoose'),
 module.exports = function (passport, facebookAppId, facebookAppSecret) {
 
     passport.serializeUser(function(user, done) {
+        console.log('serialize:' + user);
         done(null, user.id);
     });
 
+    //ここは何してるのか
     passport.deserializeUser(function(id, done) {
         User.findOne({ _id: id }, function (err, user) {
+            console.log('deserialize:' + err);
             done(err, user);
         });
     });
@@ -24,28 +27,26 @@ module.exports = function (passport, facebookAppId, facebookAppSecret) {
         User.findOne({'facebook.id': profile.id}, function (err, user) {
             if (err) { return done(err); }
             //How to get each key in profile.
-            console.log(profile.displayName);
-            console.log(profile.email);
-            console.log(profile.username);
-            console.log(profile.id);
-            console.log(profile.json);
+            console.log(JSON.stringify(profile));
+
             if (!user) {
                 user = new User({
                     name: profile.displayName,
-                    email: profile.email,
-                    user_image: profile.email,
-                    username: profile.username,
+                    profile_url: profile.profileUrl,
+                    username: profile.displayName,
                     provider_id: profile.id,
                     provider: 'facebook',
-                    facebook: profile.json
+                    facebook: profile._json
                 });
                 user.save(function (err) {
                     if (err) {
                         console.log(err);
                     }
+                    console.log(err);
                     return done(err, user);
                 });
             } else {
+                console.log(JSON.stringify(user));
                 return done(err, user);
             }
         });
