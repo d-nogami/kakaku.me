@@ -7,13 +7,13 @@ module.exports = function (passport, facebookAppId, facebookAppSecret) {
 
     passport.serializeUser(function(user, done) {
         console.log('serialize:' + user);
-        done(null, user.id);
+        done(null, user._id);
     });
 
     //ここは何してるのか
     passport.deserializeUser(function(id, done) {
-        User.findOne({ _id: id }, function (err, user) {
-            console.log('deserialize:' + err);
+        User.findById(id, function (err, user) {
+            console.log('deserialize:' + user);
             done(err, user);
         });
     });
@@ -42,7 +42,6 @@ module.exports = function (passport, facebookAppId, facebookAppSecret) {
                     if (err) {
                         console.log(err);
                     }
-                    console.log(err);
                     return done(err, user);
                 });
             } else {

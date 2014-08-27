@@ -9,8 +9,10 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
 var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var config = require('./config/environment');
-
+var appkey = require('./config/appkey');
 
 
 // Connect to database
@@ -22,6 +24,11 @@ if(config.seedDB) { require('./config/seed'); }
 // Setup server
 var app = express();
 
+app.use(cookieParser());
+app.use(session({
+	secret: appkey.COOKIE,
+	cookie: { httpOnly: false }
+}));
 app.use(function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -30,12 +37,14 @@ app.use(function (req, res, next) {
     next();
 });
 
+
 var server = require('http').createServer(app);
 var passport = require('passport');
-var appkey = require('./config/appkey');
+
 
 require('./config/passport')(passport, appkey.APP_ID, appkey.APP_SECRET);
 require('./config/express')(app, passport);
+
 require('./routes')(app, passport);
 
 // Start server
