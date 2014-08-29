@@ -17,6 +17,8 @@
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="bower_components/onsenui/build/css/onsenui.css"/>
+    <link rel="stylesheet" href="bower_components/onsenui/build/css/onsen-css-components.css"/>
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
@@ -57,14 +59,16 @@
       <script src="bower_components/angular-route/angular-route.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/onsenui/build/js/onsenui.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/login/login.controller.js"></script>
           <script src="app/main/main.controller.js"></script>
-          <script src="app/main/main.js"></script>
+          <script src="app/service/event.js"></script>
           <script src="app/sessionService/sessionService.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <!-- endinjector -->

@@ -14,8 +14,8 @@ module.exports = function(app, passport) {
   //Secured API
   //ここでクエリを使ってアクセスさせるべきかorクッキーの仕組みを使うか
   app.get('/api/secured/*', function (req, res, next) {
-    // console.log(req.user.toString());
-    if (!req.session || !req.session.provider_id) {
+    console.log(req.user);
+    if (!req.user) {
       return res.json({ error: 'This is a secret message, login to see it.' });
     }
     next();
@@ -30,7 +30,6 @@ module.exports = function(app, passport) {
   // Authentication
   app.get('/auth/facebook', passport.authenticate('facebook'));
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/auth/failure' }), function(req, res) {
-      req.session.provider_id = req.user.provider_id;
       res.render('after-auth', { state: 'success', user: req.user ? req.user : null });
     }
   );
@@ -48,6 +47,7 @@ module.exports = function(app, passport) {
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
+
 
   // All other routes should redirect to the index.html
   app.route('/*')

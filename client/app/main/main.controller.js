@@ -1,10 +1,14 @@
 'use strict';
 
 angular.module('kakakumeApp')
-  .controller('MainCtrl', ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
+  .controller('MainCtrl', ['$scope', '$rootScope', '$http', '$location', 'sessionService', function ($scope, $rootScope, $http, $location, sessionService) {
     $scope.awesomeThings = [];
     $scope.messages = {};
 
+    $scope.moveToLoginPage = function () {
+      $location.path('/login');
+      // $location.replace();
+    };
 
     function loadMessages() {
       $http.get('/api/secured/message', {withCredentials: true}).success(function(data) {
@@ -38,4 +42,10 @@ angular.module('kakakumeApp')
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
     };
+
+    if (!sessionService.isLoggedin){
+      $location.path('/login');
+      $location.replace();
+    }
+
   }]);

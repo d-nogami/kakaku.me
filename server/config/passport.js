@@ -6,14 +6,12 @@ var mongoose = require('mongoose'),
 module.exports = function (passport, facebookAppId, facebookAppSecret) {
 
     passport.serializeUser(function(user, done) {
-        console.log('serialize:' + user);
         done(null, user._id);
     });
 
     //ここは何してるのか
     passport.deserializeUser(function(id, done) {
         User.findById(id, function (err, user) {
-            console.log('deserialize:' + user);
             done(err, user);
         });
     });

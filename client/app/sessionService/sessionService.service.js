@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kakakumeApp').factory('sessionService', ['$rootScope', '$window', '$http', function ($rootScope, $window, $http) {
+angular.module('kakakumeApp').factory('sessionService', ['$window', '$http', 'eventManager', 'Event', function ($window, $http, eventManager, Event) {
       var session = {
           init: function () {
               this.resetSession();
@@ -21,13 +21,13 @@ angular.module('kakakumeApp').factory('sessionService', ['$rootScope', '$window'
               var scope = this;
               $http.delete('/auth').success(function() {
                   scope.resetSession();
-                  $rootScope.$emit('session-changed');
+                  eventManager.broadcast(Event.SESSION_UPDATE);
               });
           },
           authSuccess: function(userData) {
               this.currentUser = userData;
               this.isLoggedIn = true;
-              $rootScope.$emit('session-changed');
+              eventManager.broadcast(Event.SESSION_UPDATE);
           },
           authFailed: function() {
               this.resetSession();

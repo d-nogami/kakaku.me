@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('kakakumeApp', [
+  'onsen',
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -9,6 +10,14 @@ angular.module('kakakumeApp', [
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
+      .when('/login', {
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginCtrl'
+      })
+      .when('/', {
+        templateUrl: 'app/main/main.html',
+        controller: 'MainCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
