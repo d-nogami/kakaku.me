@@ -27,6 +27,22 @@ module.exports = function(app, passport) {
     res.json({ message: 'This message is known by all' });
   });
 
+  app.get('/api/isloggedin', function (req, res, next) {
+    console.log(req.user);
+    if (!req.user) {
+      return res.json({ isLoggedIn: false });
+    }
+    next();
+  }, function (req, res) {
+    res.json(
+      { 
+        isLoggedIn : true,
+        user : req.user 
+      });
+  });
+
+
+
   // Authentication
   app.get('/auth/facebook', passport.authenticate('facebook'));
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/auth/failure' }), function(req, res) {

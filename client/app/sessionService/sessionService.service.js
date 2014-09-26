@@ -32,8 +32,20 @@ angular.module('kakakumeApp').factory('sessionService', ['$window', '$http', 'ev
           authFailed: function() {
               this.resetSession();
               alert('Authentication failed');
+              eventManager.broadcast(Event.SESSION_UPDATE);
+          },
+          checkLoginState: function () {
+              var me = this;
+              $http.get('/api/isloggedin', {withCredentials: true}).success(function(data) {
+                  if (data.isLoggedIn) {
+                      me.authSuccess(data.user);
+                  } else {
+                      me.authFailed();
+                  }
+              });
           }
       };
+      // session.checkLoginState();
       session.init();
       return session;
 }]);
