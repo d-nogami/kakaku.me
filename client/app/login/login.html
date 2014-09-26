@@ -1,12 +1,14 @@
-<ons-navigator var="navigator">
+<div ng-controller="LoginCtrl">
+	<ons-navigator var="navigator">
 
-  <ons-page>
-    <!-- Page content -->
-  	<ons-toolbar>
-    	<div class="center">LOGIN</div>
-  	</ons-toolbar>
+	  <ons-page>
+	    <!-- Page content -->
+	  	<ons-toolbar>
+	    	<div class="center">LOGIN</div>
+	  	</ons-toolbar>
 
-    <ons-button ng-hide="isLoggedin" ng-click="onLogin()">Login</ons-button>
-    <ons-button ng-show="isLoggedin" ng-click="onLogout()">Logout</ons-button>
-  </ons-page>
-</ons-navigator>
+	    <ons-button ng-hide="isLoggedIn" ng-click="onLogin()">Login</ons-button>
+	    <ons-button ng-show="isLoggedIn" ng-click="onLogout()">Logout</ons-button>
+	  </ons-page>
+	</ons-navigator>
+</div>

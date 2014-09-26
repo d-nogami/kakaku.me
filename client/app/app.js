@@ -14,9 +14,15 @@ angular.module('kakakumeApp', [
         templateUrl: 'app/login/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/home', {
+        templateUrl: 'app/home/home.html',
+        controller: 'HomeCtrl'
+      })
       .when('/', {
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        // templateUrl: 'app/main/main.html',
+        // controller: 'MainCtrl'
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'
