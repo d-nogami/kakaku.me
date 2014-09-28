@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('kakakumeApp')
-  .controller('HomeCtrl', ['$scope', function ($scope) {
+  .controller('MainCtrl', ['$scope', function ($scope) {
     $scope.onMoveToPage2 = function () {
-      menu.setAbovePage('page2.html', {closeMenu: true});
+      app.splitView.toggle();
+      app.splitView.setMainPage('page2.html');
       // setTimeout(initializePage2Map, 200);
       getCurrentLocation();
     }

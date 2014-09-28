@@ -11,17 +11,17 @@ angular.module('kakakumeApp', [
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/login', {
-        templateUrl: 'app/login/login.html',
+        templateUrl: 'app/view/login.html',
         controller: 'LoginCtrl'
       })
       .when('/home', {
-        templateUrl: 'app/home/home.html',
-        controller: 'HomeCtrl'
+        templateUrl: 'app/view/main.html',
+        controller: 'MainCtrl'
       })
       .when('/', {
         // templateUrl: 'app/main/main.html',
         // controller: 'MainCtrl'
-        templateUrl: 'app/login/login.html',
+        templateUrl: 'app/view/login.html',
         controller: 'LoginCtrl'
       })
       .otherwise({

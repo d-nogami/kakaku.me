@@ -1,0 +1,134 @@
+<!-- <div ng-controller="MainCtrl"> -->
+
+
+  <ons-split-view
+    var="app.splitView"
+    secondary-page="menu.html"
+    main-page="page1.html"
+    main-page-width="70%"
+    collapse="portrait">
+  </ons-split-view>
+
+  <ons-template id="menu.html">
+    <ons-page style="background-color: white; border-right: 1px solid #ddd;">
+      <ons-list>
+				<ons-list-item
+          modifier="tappable"
+          class="list__item__line-height"
+          ng-click="app.splitView.toggle(); app.splitView.setMainPage('category-list.html');">   
+          <i class="fa fa-list-ul fa-lg" style="color: #666"></i>
+          &nbsp; カテゴリー
+        </ons-list-item>
+
+        <ons-list-item
+          modifier="tappable"
+          class="list__item__line-height"
+          onclick="app.splitView.toggle(); app.splitView.setMainPage('page1.html');">
+          <i class="fa fa-home fa-lg" style="color: #666"></i>
+          &nbsp; Page 1
+        </ons-list-item>
+
+        <ons-list-item
+          modifier="tappable"
+          class="list__item__line-height"
+          ng-click="onMoveToPage2()">   
+          <i class="fa fa-gear fa-lg" style="color: #666"></i>
+          &nbsp; Page 2
+        </ons-list-item>
+
+      </ons-list>
+    </ons-page>
+  </ons-template>
+
+
+	<ons-template id="category-list.html">
+		<ons-navigator var="categoryListNav" ng-controller='CategoryListCtrl'>
+		  <ons-page>
+		    <ons-toolbar>
+		    	<div class="left">
+		      	<ons-toolbar-button ng-click="app.splitView.toggle()">
+		      		<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+		      	</ons-toolbar-button>
+		    	</div>
+		      <div class="center">商品カテゴリー</div>
+		    </ons-toolbar>
+		    <ons-list>
+		      <ons-list-header>食料品</ons-list-header>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">野菜・果物</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">肉</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">魚</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">乳製品・卵</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">飲み物</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">酒</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">お菓子・つまみ</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">調味料</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">その他</ons-list-item>
+		      <ons-list-header>日用品</ons-list-header>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">洗剤類</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">紙類</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">文具</ons-list-item>
+		        <ons-list-item modifier="tappable" ng-click="onClickItem('hoge');">その他</ons-list-item>
+
+		    </ons-list>
+		  </ons-page>
+	  </ons-navigator>
+	</ons-template>
+
+  <ons-template id="item-list.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="app.splitView.toggle()">
+            <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">商品一覧</div>
+      </ons-toolbar>
+      <ons-list>
+        <ons-list-item modifier="tappable" ng-repeat="item in items">{{item.name}}</ons-list-item> 
+      </ons-list>
+    </ons-page>
+  </ons-template>
+
+
+  <ons-template id="page1.html" >
+    <ons-navigator>
+      <ons-page>
+        <ons-toolbar>
+        	<div class="left">
+	        	<ons-toolbar-button ng-click="app.splitView.toggle()">
+	        		<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+	        	</ons-toolbar-button>
+	      	</div>
+          <div class="center">Page1</div>
+        </ons-toolbar>
+        <div style="text-align: center; color: #999; padding: 60px 10px 10px 10px;">
+        </div>
+      </ons-page>
+    </ons-navigator>
+  </ons-template>
+
+
+
+
+  <ons-template id="page2.html">
+    <ons-navigator>
+      <ons-page>s
+        <ons-toolbar>
+		      <div class="left">
+		        <ons-toolbar-button onclick="app.splitView.toggle()"><ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon></ons-toolbar-button>
+		      </div>
+		      <div class="center">Page 2</div>
+		    </ons-toolbar>
+
+		    <div id="page2Map" style="width:50%; height:50%"></div>
+
+		    <p style="text-align: center; color: #999; padding-top: 100px;">Page2 Contents</p>
+      </ons-page>
+    </ons-navigator>
+  </ons-template>
+
+<!-- </div> -->
+
+
+
