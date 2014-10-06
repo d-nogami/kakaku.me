@@ -2,11 +2,8 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    uuid = require('node-uuid');
+    lib = require('../../lib');
 
-function getAuthCookie() {
-	return uuid.v4();
-}
 
 var UserSchema = new Schema({
   name: { type: String, required: true },
@@ -15,7 +12,7 @@ var UserSchema = new Schema({
   provider_id: { type: String, required: true, unique: true },
   provider: String,
   facebook: {},
-  authcookie: { type: String, required: true, default: getAuthCookie },
+  authcookie: { type: String, required: true, default: lib.getAuthCookie },
   created: { type: Date, 'default': Date.now }
 });
 

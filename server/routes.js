@@ -5,6 +5,7 @@
 'use strict';
 
 var errors = require('./components/errors');
+var lib = require('./lib');
 
 module.exports = function(app, passport) {
 
@@ -29,16 +30,43 @@ module.exports = function(app, passport) {
 
   app.get('/api/isloggedin', function (req, res, next) {
     console.log(req.user);
-    if (!req.user) {
+    if (!req.cookies.authtoken) {
       return res.json({ isLoggedIn: false });
     }
     next();
   }, function (req, res) {
-    res.json(
-      { 
-        isLoggedIn : true,
-        user : req.user 
+    var token = JSON.parse(req.cookies.authtoken);
+    var condition = {
+      provider_id: token.provider_id,
+      authcookie: token.authcookie
+    };
+
+    User.findOne(condition, function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      if (!result) {
+        return res.json({ isLoggedIn: false });
+      }
+      var update = {authcookie: lib.getAuthCookie()};
+      User.update(condition, update, function (err, numAffected) {
+        if (err) {
+          return next(err);
+        }
+
+        req.session.provider_id = result.provider_id;
+        var newtoken = {
+          provider_id: result.provider_id,
+          authcookie: update.authcookie
+        }
+        setCookie(res, JSON.stringify(newtoken));
+        result.authcookie = update.authcookie;
+        return res.json({
+          isloggedin: true,
+          user: result
+        });
       });
+    });
   });
 
 
@@ -46,6 +74,12 @@ module.exports = function(app, passport) {
   // Authentication
   app.get('/auth/facebook', passport.authenticate('facebook'));
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/auth/failure' }), function(req, res) {
+      var newtoken = {
+        provider_id: req.user.provider_id,
+        authcookie: req.user.authcookie
+      }
+      lib.setCookie(res, JSON.stringify(newtoken));
+      req.session.provider_id = req.user.provider_id;
       res.render('after-auth', { state: 'success', user: req.user ? req.user : null });
     }
   );
